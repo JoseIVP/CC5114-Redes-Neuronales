@@ -13,6 +13,9 @@ public class Perceptron {
     public void train(double x, double y, boolean expected){
         boolean realOutput= this.feed(x, y);
         double diff= (expected? 1: 0) - (realOutput? 1: 0);
+        // Para todos los componentes del perceptron recomputamos el peso como:
+        // pesoComponenteN = pesoComponenteN + ( TazaDeAprendizaje * inputN * diff)
+        // siendo diff la diferencia entre el output esperado y el output real.
         weightX= weightX + (learningRate * x * diff);
         weightY= weightY + (learningRate * y * diff);
         bias= bias + (learningRate * diff);
