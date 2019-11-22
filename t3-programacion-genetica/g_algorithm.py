@@ -63,7 +63,7 @@ def g_algorithm(pop_size: int, select_size: int, fitness_func,
     
     while True:
         fitness = []
-        best_obj, best_fitness = None, 0
+        best_obj, best_fitness = None, -10e9
         for obj in population:
             fitness.append(fitness_func(obj))
             if fitness[-1] >= best_fitness:

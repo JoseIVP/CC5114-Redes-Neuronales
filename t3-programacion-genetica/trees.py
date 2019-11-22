@@ -7,7 +7,7 @@ class AbstractNode:
         self.parent = parent
         self.key = key
 
-    def eval(self):
+    def eval(self, var_dic={}):
         pass
 
     def copy(self):
@@ -22,7 +22,6 @@ class AbstractNode:
 
 class AbstractInternal(AbstractNode):
 
-
     def __init__(self, parent=None, key=None, left=None, right=None):
         super().__init__(parent, key)
         self.set_children(left, right)
@@ -33,16 +32,17 @@ class AbstractInternal(AbstractNode):
             'right': right,
         }
         for key, child in self.children.items():
-            if child is None: continue
+            if child is None:
+                continue
             child.parent = self
-            child.key = key 
+            child.key = key
 
-    def eval(self):
+    def eval(self, var_dic={}):
         """Evaluate the children of the node and return a dictionary of values."""
 
         self.children_eval = {}
-        for key , child in self.children.items():
-            self.children_eval[key] = child.eval()
+        for key, child in self.children.items():
+            self.children_eval[key] = child.eval(var_dic=var_dic)
         return self.children_eval
 
     def copy(self):
@@ -52,7 +52,7 @@ class AbstractInternal(AbstractNode):
         children_copy = {}
         for key, child in self.children.items():
             children_copy[key] = child.copy()
-            
+
         return type(self)(**children_copy)
 
     def serialize(self, node_list: list):
@@ -79,8 +79,8 @@ class AbstractInternal(AbstractNode):
             self.children[key] = child
             # Keep generating nodes.
             if not child.is_terminal():
-                child.generate_children(
-                    internals, terminals, depth - 1, terminal_prob)
+                child.generate_children(internals, terminals, depth - 1,
+                                        terminal_prob)
 
     def is_terminal(self):
         return False
@@ -92,7 +92,7 @@ class AbstractTerminal(AbstractNode):
         super().__init__(parent, key)
         self.value = value
 
-    def eval(self):
+    def eval(self, var_dic={}):
         """Return the value of the terminal."""
 
         return self.value
@@ -115,8 +115,8 @@ def binary_operation_node(operation):
 
     class BinaryOpNode(AbstractInternal):
 
-        def eval(self):
-            children_eval = super().eval()
+        def eval(self, var_dic={}):
+            children_eval = super().eval(var_dic=var_dic)
             return operation(children_eval['left'], children_eval['right'])
 
     return BinaryOpNode
@@ -131,5 +131,3 @@ def value_node(value_generator):
             super().__init__(value, parent=parent, key=key)
 
     return ValueNode
-
-        
