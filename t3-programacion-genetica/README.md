@@ -101,7 +101,7 @@ Para esto se creo un nuevo nodo de operación que simplemente ejecutara la divis
 pero en la función de fitness se utiliza un try-catch, para atrapar las excepciones
 de división por cero y retornar 0 como el valor de fitness.
 
-Se ejcutó el mismo experimento anterior, esta vez con el nodo para la división,
+Se ejecutó el mismo experimento anterior, esta vez con el nodo para la división,
 y los resultados fueron los siguientes:
 
 ```
@@ -120,15 +120,15 @@ de la 50.
 
 ## Análisis
 
-En esta parte se generó un heatmap de las configuraciónes para el primer
+En esta parte se generó un heatmap de las configuraciones para el primer
 problema, cambiando sin embargo, los parámetros del algoritmo:
 
-* Población: se tormarón pobalciónes entre 50 y 1000 de 50 en 50
+* Población: se tomaron poblaciones entre 50 y 1000 con pasos de 50.
 * Tamaño de selección: 5
-* Mutation rate: se tomaron mutation rates entre 0 y 1.0 de 0.1 en 0.1
+* Mutation rate: se tomaron mutation rates entre 0 y 1.0 con pasos de 0.1.
 * Iteraciones: 50
 
 ![Heatmap](./results/heatmap.png)
 
 Podemos observar que los fitness más altos (amarillos) se dan para mutation
-rates más pequeños, sin importar el tamaño de la población.
+rates más pequeños, sin importar demasiado el tamaño de la población.
